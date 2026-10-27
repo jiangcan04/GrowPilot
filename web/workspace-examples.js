@@ -13,12 +13,12 @@
    makeJob('example-job-3','智能产品运营实习生','北京',[req('user-research','用户研究与需求分析','参与用户访谈并整理需求结论','research'),req('sql','SQL 数据查询','掌握基础 SQL 查询与分组统计','data'),req('operations','内容与活动运营','协助完成内容整理与运营复盘','operations',false)])
   ];
   s.experiences=[
-   {id:'example-exp-education',title:'某高校硕士在读（示例）',type:'教育经历',description:'在校研究生，完成教育与社会研究方法相关学习。本资料仅为虚构演示。',confirmed:true,revision:0},
-   {id:'example-exp-internship',title:'内容与商务协助实习（示例）',type:'实习经历',description:'协助整理合作方资料和公众号内容，记录沟通事项，形成每周任务总结。',confirmed:true,revision:0},
-   {id:'example-exp-course',title:'SQL 课程练习（示例）',type:'课程经历',description:'在课程中使用 SQL 练习 SELECT 和 WHERE，保存过查询语句，尚未完成业务指标分析。',confirmed:true,revision:0},
-   {id:'example-exp-project',title:'校园问卷整理项目（示例）',type:'项目经历',description:'在课堂项目中设计过问卷，使用 Excel 整理反馈，尚未做过完整用户访谈。',confirmed:true,revision:0}
+   {id:'example-exp-education',title:'青禾创意学院 · 数字媒体本科在读（院校与人物均虚构）（示例）',type:'教育经历',description:'虚构人物林小满，青禾创意学院数字媒体专业本科生，2023—2027年。课程包括数字内容设计、用户研究入门和数据可视化。学校、人物、时间和经历均为专门编写的演示数据，不对应平台所有者。',confirmed:true,revision:0},
+   {id:'example-exp-internship',title:'云朵咖啡 · 社区内容助理（企业与经历均虚构）（示例）',type:'实习经历',description:'在虚构品牌云朵咖啡的模拟实习中，整理社群内容素材、编排体验活动文案，用表格记录用户反馈与每周待办。仅展示内容运营协作流程，无真实雇佣关系。',confirmed:true,revision:0},
+   {id:'example-exp-course',title:'虚拟商店订单 · SQL 课程练习（示例）',type:'课程经历',description:'使用虚拟商店订单表练习 SQL 的 SELECT 和 WHERE，保存查询语句和字段说明，尚未完成业务指标分析；数据全部为合成数据。',confirmed:true,revision:0},
+   {id:'example-exp-project',title:'校园旧物交换平台 · 课程问卷练习（虚构）（示例）',type:'项目经历',description:'为虚构的校园旧物交换平台设计问卷，用 Excel 整理合成反馈数据，归纳分类和统计口径，尚未做过完整用户访谈；所有资料为课程演示设定。',confirmed:true,revision:0}
   ];
-  s.materials=[{id:'example-resume',title:'小林的示例简历（示例）',raw:s.experiences.map(e=>e.title+'\n'+e.description).join('\n\n'),date:C.today()}];
+  s.materials=[{id:'example-resume',title:'林小满的虚构演示简历（示例）',raw:s.experiences.map(e=>e.title+'\n'+e.description).join('\n\n'),date:C.today()}];
   s.sources=[
    source('example-michelle','Michelle 在已有工作中补充 UX 项目的经历','https://grow.google/intl/en_au/article-michelle-zhou/','research','公开故事介绍了从已有工作情境积累项目、建立作品集的转型路径。','从身边可接触的真实问题出发，记录研究过程、个人行动与可展示产出。'),
    source('example-antonio','Antonio 将 SQL 应用技能用于数据岗位的经历','https://blog.coursera.org/see-how-antonio-landed-an-ideal-first-job-out-of-college-by-stacking-job-ready-applied-skills-on-top-of-his-degree-learning/','data','公开毕业生自述提及数据库与 SQL 技能、日常工作和技术面试的联系。','围绕岗位使用的工具做小任务，并能解释查询过程与结果。'),

@@ -13,8 +13,8 @@
   try{state=C.migrate(JSON.parse(localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY)||'null'));}catch{state=C.fresh();}
   if(!state.folders.length&&!state.experiences.length&&!state.outcomes.length){state=E.create(C);state.page='goal';state.plans=state.plans.filter(p=>p.status!=='suggested');}
   if(!['goal','evidence','plans','today','review'].includes(state.page))state.page='goal';
-  const accountDB=A.bootstrap(localStorage,state,()=>C.fresh());
-  if(A.account(accountDB))state=C.migrate(accountDB.workspaces[accountDB.sessionId]);
+  const accountDB=A.bootstrap(localStorage,state,()=>C.fresh(),()=>E.create(C));
+  state=C.migrate(accountDB.workspaces[accountDB.sessionId||A.DEFAULT]);
   let authChallenge=null,authEmail='',authStage='email',authTimer=null,todayFolder='',accumulationTab='library',savingForm=false;
   const formSnapshots=new WeakMap();
   let coachContext=null,coachQuestion='',calendarMode='week',calendarAnchor='';

@@ -5,10 +5,10 @@
  const clone=x=>JSON.parse(JSON.stringify(x));
  const email=v=>String(v||'').trim().toLowerCase();
  const validEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email(v))&&email(v).length<=254;
- function bootstrap(storage,legacy,fresh){
-  const raw=storage.getItem(KEY);if(raw){const db=JSON.parse(raw);if(db.version!==1||!Array.isArray(db.accounts)||!db.workspaces)throw Error('演示账户数据格式无法读取，请先保留浏览器数据。');if(!db.accounts.some(a=>a.id===db.sessionId))db.sessionId='';return db;}
-  const db={version:1,sessionId:'',accounts:[{id:DEFAULT,email:'lin@example.com',nickname:'小林',avatar:'林',visited:false},{id:EMPTY,email:'new@example.com',nickname:'新同学',avatar:'新',visited:false}],workspaces:{[DEFAULT]:clone(legacy),[EMPTY]:fresh()}};
-  storage.setItem(KEY,JSON.stringify(db));return db;
+ function bootstrap(storage,legacy,fresh,demoFactory){
+  const raw=storage.getItem(KEY);if(raw){const db=JSON.parse(raw);if(db.version!==1||!Array.isArray(db.accounts)||!db.workspaces)throw Error('演示账户数据格式无法读取，请先保留浏览器数据。');if(!db.accounts.some(a=>a.id===db.sessionId))db.sessionId='';if(demoFactory&&db.fictionalDemoRevision!==2){db.workspaces[DEFAULT]=demoFactory();const a=db.accounts.find(a=>a.id===DEFAULT);if(a)Object.assign(a,{nickname:'林小满（虚构）',email:'demo@example.com',avatar:'林',visited:false});db.fictionalDemoRevision=2;write(storage,db);}return db;}
+  const db={version:1,sessionId:'',accounts:[{id:DEFAULT,email:demoFactory?'demo@example.com':'lin@example.com',nickname:demoFactory?'林小满（虚构）':'小林',avatar:'林',visited:false},{id:EMPTY,email:'new@example.com',nickname:'新同学',avatar:'新',visited:false}],workspaces:{[DEFAULT]:demoFactory?demoFactory():clone(legacy),[EMPTY]:fresh()}};
+  if(demoFactory)db.fictionalDemoRevision=2;storage.setItem(KEY,JSON.stringify(db));return db;
  }
  function account(db){return db.accounts.find(a=>a.id===db.sessionId)||null;}
  function write(storage,db){storage.setItem(KEY,JSON.stringify(db));}
