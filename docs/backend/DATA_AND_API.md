@@ -38,7 +38,7 @@
 | POST /auth/sessions | `{challengeId,code,nickname?}`；以服务端挑战绑定的渠道/目标验证；新用户原子建用户和身份，设置安全会话Cookie |
 | DELETE /auth/session; GET /me; PATCH /me | 退出、读取/更改个人资料及时区 |
 | GET/POST /directions; PATCH /directions/{id} | 方向和准备周期 |
-| POST /job-collection-runs | `{directionId,filters,sources}`→202；不保证任意平台可采 |
+| POST /job-collection-runs | `{directionId,filters,source:"boss"}`→202；目标为BOSS直聘，实际接入条件需核实，不可静默回退其他来源 |
 | GET /jobs; POST /jobs; GET /jobs/{id} | 筛选岗位、手动创建、读取原文与版本 |
 | POST /directions/{id}/jobs | `{jobId}` 收藏；重复调用幂等 |
 | PATCH /directions/{id}/jobs/{jobId} | 选中参考、归档或恢复；不删除其他方向岗位 |
@@ -92,3 +92,7 @@
 ## 双渠道登录补充
 
 邮箱与手机号的验证、绑定、错误状态及验收见 [LOGIN_CHANNELS.md](LOGIN_CHANNELS.md)。前端示例内部使用 `phone`，生产发送渠道使用 `sms`，由 AuthClient 明确映射；不能直接把本机演示账户当作已验证身份。
+
+## BOSS 直聘采集边界（2026-10-27）
+
+当前前端一键采集使用虚构岗位，不调用 `/api/collect-jobs`。该旧接口内的 Remotive 适配是历史实验，必须由真实 BOSS 来源适配替换后才满足产品需求；禁止只改 sourceName 或把远程岗位当作 BOSS 结果。正式返回须包含来源平台、可核查的原始岗位URL、原文、发布时间（未知为空）、采集时间、分页及失败状态。批量/缓存策略根据实际接入条件设置；不继承旧来源的100/30条与六小时策略。
