@@ -8,7 +8,7 @@
 
 | 实体 | 关键字段和约束 |
 |---|---|
-| users / sessions / verification_challenges | 规范化邮箱、昵称、时区；验证码哈希/过期/次数；会话摘要/过期/撤销 |
+| users / auth_identities / sessions / verification_challenges | 用户UUID、昵称、时区；身份type=email/phone及规范值、verifiedAt，type/value唯一；挑战channel=email/sms、目标、用途、验证码哈希/过期/次数；会话摘要/过期/撤销 |
 | directions | 名称、地点偏好、准备开始日/天数、参考日时长；归属用户 |
 | jobs / job_versions | 来源唯一ID/规范URL、公司、职位、地点、分类/筛选字段、原文、原文摘要hash、抓取/发布日期；保留版本 |
 | direction_jobs | directionId/jobId、归档标记、selectedForMatch；组合唯一，跨用户引用需校验 |
@@ -34,8 +34,8 @@
 
 | 方法/路径 | 用途、主要约束 |
 |---|---|
-| POST /auth/email-challenges | `{email}`；限流，不返回明文验证码；防账户枚举 |
-| POST /auth/sessions | `{email,code}`；设置安全会话Cookie |
+| POST /auth/challenges | `{channel:email\|sms,identifier,purpose:login}`；邮箱或E.164手机号，返回challengeId/expiresAt/resendAt；限流，不返回明文验证码；防账户枚举 |
+| POST /auth/sessions | `{challengeId,code,nickname?}`；以服务端挑战绑定的渠道/目标验证；新用户原子建用户和身份，设置安全会话Cookie |
 | DELETE /auth/session; GET /me; PATCH /me | 退出、读取/更改个人资料及时区 |
 | GET/POST /directions; PATCH /directions/{id} | 方向和准备周期 |
 | POST /job-collection-runs | `{directionId,filters,sources}`→202；不保证任意平台可采 |
@@ -88,3 +88,7 @@
 ## 当前实验接口的迁移
 
 `worker/handler.mjs` 包含 /api/status、/api/collect-jobs、/api/experience-sources、/api/analyze、/api/recognize-outcome；`server.py` 含本机文件/链接读取探索实现。固定案例采集不满足本PRD的方向化开放网页检索。当前 X-InternPilot-CSRF 固定值不是生产认证或可靠防护；生产需真实会话、CSRF策略、分布式限流、用户权限和SSR F防护。真实数据操作通过adapter接入新API，不要通过给现有端点设置模型Key就宣称完整后端接通。
+
+## 双渠道登录补充
+
+邮箱与手机号的验证、绑定、错误状态及验收见 [LOGIN_CHANNELS.md](LOGIN_CHANNELS.md)。前端示例内部使用 `phone`，生产发送渠道使用 `sms`，由 AuthClient 明确映射；不能直接把本机演示账户当作已验证身份。
