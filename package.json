@@ -1,0 +1,9 @@
+{
+  "name": "internpilot-local-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "node --use-env-proxy scripts/dev.mjs",
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs && python3 -m unittest discover -s tests -p \"test_*.py\"",
+    "build": "node scripts/build-worker.mjs"
+  }
+}

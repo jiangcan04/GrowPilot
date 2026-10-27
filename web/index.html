@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f8">
+  <title>GrowPilot · 求职成长工作台</title>
+  <meta name="description" content="从岗位采集、方向要求与经历匹配，到有经验来源的成长建议和成果积累。">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./growth-theme.css">
+  <script src="./vendor/jszip.min.js" defer></script>
+  <script src="./job-taxonomy.js" defer></script>
+  <script src="./word-cloud.js" defer></script>
+  <script src="./core.js" defer></script>
+  <script src="./workspace-examples.js" defer></script>
+  <script src="./growth-preview.js" defer></script>
+  <script src="./experience-workflows.js" defer></script>
+  <script src="./daily-execution.js" defer></script>
+  <script src="./gulu-companion.js" defer></script>
+  <script src="./task-coach.js" defer></script>
+  <script src="./task-calendar.js" defer></script>
+  <script src="./demo-accounts.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div id="auth-root" hidden></div>
+  <div class="app-shell" hidden>
+    <aside class="sidebar" aria-label="主要导航">
+      <div class="logo"><span class="logo-mark">GP</span><span>GrowPilot<small>求职准备工作台</small></span></div>
+      <nav id="side-nav"></nav>
+      <div class="sidebar-ai-note">岗位 → 差距 → 行动<small>用成果积累自己的经历</small></div>
+      <div id="account-root" class="account-root"></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left"><button class="mobile-menu" id="mobile-menu" aria-label="打开导航">☰</button><span id="top-label">求职准备</span></div>
+        <div class="topbar-right"><span class="local-note">前端交互预览</span><span class="signed-in-label" id="signed-in-label"></span></div>
+      </header>
+      <main id="main-content" tabindex="-1"></main>
+    </div>
+  </div>
+  <div id="gulu-root" class="gulu-root" aria-label="咕噜陪伴"></div>
+  <div id="coach-root"></div>
+  <div id="modal-root"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

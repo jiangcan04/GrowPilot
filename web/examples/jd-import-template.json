@@ -1,0 +1,197 @@
+[
+  {
+    "title": "演示产品实习岗位 1",
+    "company": "演示单位 1",
+    "demo": true,
+    "rawJD": "掌握 SQL 基础查询，能按条件筛选数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "SQL基础查询",
+        "quote": "掌握 SQL 基础查询，能按条件筛选数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 2",
+    "company": "演示单位 2",
+    "demo": true,
+    "rawJD": "能够使用 SQL 查询数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "使用 SQL 查询数据",
+        "quote": "能够使用 SQL 查询数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 3",
+    "company": "演示单位 3",
+    "demo": true,
+    "rawJD": "掌握 SQL 基础查询，能按条件筛选数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "SQL基础查询",
+        "quote": "掌握 SQL 基础查询，能按条件筛选数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 4",
+    "company": "演示单位 4",
+    "demo": true,
+    "rawJD": "能够使用 SQL 查询数据。\n参与用户访谈，整理需求记录。\n能够独立完成复杂 SQL 分析。",
+    "requirements": [
+      {
+        "label": "使用 SQL 查询数据",
+        "quote": "能够使用 SQL 查询数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      },
+      {
+        "label": "复杂 SQL 分析",
+        "quote": "能够独立完成复杂 SQL 分析。",
+        "must": true
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 5",
+    "company": "演示单位 5",
+    "demo": true,
+    "rawJD": "掌握 SQL 基础查询，能按条件筛选数据。\n参与用户访谈，整理需求记录。\n能够使用 Python 处理数据。",
+    "requirements": [
+      {
+        "label": "SQL基础查询",
+        "quote": "掌握 SQL 基础查询，能按条件筛选数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      },
+      {
+        "label": "Python 编程",
+        "quote": "能够使用 Python 处理数据。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 6",
+    "company": "演示单位 6",
+    "demo": true,
+    "rawJD": "能够使用 SQL 查询数据。\n参与用户访谈，整理需求记录。\n能够使用英语进行日常沟通。",
+    "requirements": [
+      {
+        "label": "使用 SQL 查询数据",
+        "quote": "能够使用 SQL 查询数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      },
+      {
+        "label": "英语沟通",
+        "quote": "能够使用英语进行日常沟通。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 7",
+    "company": "演示单位 7",
+    "demo": true,
+    "rawJD": "掌握 SQL 基础查询，能按条件筛选数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "SQL基础查询",
+        "quote": "掌握 SQL 基础查询，能按条件筛选数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 8",
+    "company": "演示单位 8",
+    "demo": true,
+    "rawJD": "能够使用 SQL 查询数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "使用 SQL 查询数据",
+        "quote": "能够使用 SQL 查询数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 9",
+    "company": "演示单位 9",
+    "demo": true,
+    "rawJD": "掌握 SQL 基础查询，能按条件筛选数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "SQL基础查询",
+        "quote": "掌握 SQL 基础查询，能按条件筛选数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  },
+  {
+    "title": "演示产品实习岗位 10",
+    "company": "演示单位 10",
+    "demo": true,
+    "rawJD": "能够使用 SQL 查询数据。\n参与用户访谈，整理需求记录。",
+    "requirements": [
+      {
+        "label": "使用 SQL 查询数据",
+        "quote": "能够使用 SQL 查询数据。",
+        "must": true
+      },
+      {
+        "label": "用户访谈",
+        "quote": "参与用户访谈，整理需求记录。",
+        "must": false
+      }
+    ]
+  }
+]
