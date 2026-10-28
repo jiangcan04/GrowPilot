@@ -1,0 +1,72 @@
+/* Gulu: expressive eyes and small, intentional interactions. */
+.gulu-root [hidden]{display:none!important}
+.gulu-action-layer{transform-origin:70px 115px}
+.gulu-eye-pair{transform:translate(var(--gulu-look-x,0px),var(--gulu-look-y,0px));transition:transform .12s ease-out}
+.gulu-eye-lid{transform-origin:0 0;animation:gulu-blink 5.7s infinite}
+.gulu-eye-right .gulu-eye-lid{animation-delay:.045s}
+.gulu-eye-normal{fill:#1c1c1b}
+.gulu-eye-smile,.gulu-eye-rest,.gulu-eye-brow{display:none;fill:none;stroke:#1c1c1b;stroke-width:1.65;stroke-linecap:round}
+.gulu-eye-surprise{display:none;fill:#fff;stroke:#1c1c1b;stroke-width:1.4}
+.gulu-root[data-mood=happy] .gulu-eye-normal,.gulu-root[data-mood=sleep] .gulu-eye-normal,.gulu-root[data-mood=surprised] .gulu-eye-normal{display:none}
+.gulu-root[data-mood=happy] .gulu-eye-smile,.gulu-root[data-mood=sleep] .gulu-eye-rest,.gulu-root[data-mood=surprised] .gulu-eye-surprise{display:block}
+.gulu-root[data-mood=happy] .gulu-eye-lid,.gulu-root[data-mood=sleep] .gulu-eye-lid,.gulu-root[data-mood=surprised] .gulu-eye-lid{animation:none}
+.gulu-root[data-mood=wink] .gulu-eye-right .gulu-eye-normal{display:none}
+.gulu-root[data-mood=wink] .gulu-eye-right .gulu-eye-smile{display:block}
+.gulu-root[data-mood=focus] .gulu-eye-normal{transform:scaleY(.72)}
+.gulu-root[data-mood=focus] .gulu-eye-brow{display:block}
+.gulu-root[data-action=drag] .gulu-action-layer{transform:rotate(var(--gulu-drag-tilt,0deg)) translateY(-4px);transition:transform .1s ease-out}
+.gulu-root[data-action=land] .gulu-action-layer{animation:gulu-land .7s ease-out both}
+.gulu-root[data-action=greet].gulu-effect-replay .gulu-action-layer{animation:gulu-wave 1s ease-in-out 2}
+.gulu-root[data-action=pet].gulu-effect-replay .gulu-action-layer{animation:gulu-pet .9s ease-in-out 2}
+.gulu-root[data-action=celebrate].gulu-effect-replay .gulu-action-layer{animation:gulu-jump .75s ease-in-out 4}
+.gulu-root[data-action=look] .gulu-action-layer{animation:gulu-look 1.8s ease-in-out both}
+.gulu-root[data-action=stretch] .gulu-action-layer{animation:gulu-stretch 1.8s ease-in-out both}
+.gulu-root[data-action=walk].gulu-effect-replay .gulu-action-layer{animation:gulu-walk 2.2s ease-in-out both}
+.gulu-root[data-action=nod] .gulu-action-layer{animation:gulu-nod .6s ease-out both}
+.gulu-root[data-action=wake] .gulu-action-layer{animation:gulu-stretch 1.2s ease-out both}
+.gulu-root[data-mood=sleep] .bird-body{animation:gulu-sleep-breathe 4.5s ease-in-out infinite}
+.gulu-sparkles,.gulu-hearts,.gulu-zzz{opacity:0;pointer-events:none}
+.gulu-sparkles{fill:#d5e727;stroke:#9bad33;stroke-width:.4}
+.gulu-hearts{fill:#dce935;stroke:#9eaf39;stroke-width:.7}
+.gulu-root[data-action=celebrate].gulu-effect-replay .gulu-sparkles{animation:gulu-sparkle 1.3s ease-out 3}
+.gulu-root[data-action=pet].gulu-effect-replay .gulu-hearts{animation:gulu-heart 1.25s ease-out 2}
+.gulu-root[data-mood=sleep] .gulu-zzz{opacity:1;animation:gulu-doze 3.8s ease-in-out infinite}
+.gulu-zzz text{fill:#686b60;font:600 9px ui-sans-serif,sans-serif}
+.gulu-avatar>span{display:flex;align-items:center;justify-content:center;gap:4px;white-space:nowrap}
+.gulu-status-badge{font:500 9px/1.5 ui-sans-serif,sans-serif;letter-spacing:0;background:#eff3d8;color:#5b6733;border-radius:4px;padding:0 4px;text-shadow:none;font-variant-numeric:tabular-nums}
+.gulu-pet-tools{position:fixed;z-index:28;display:flex;gap:4px;padding:5px;background:#fff;border:1px solid #e3e5dd;border-radius:8px;box-shadow:0 5px 18px #1515150c;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s}
+.gulu-hover .gulu-pet-tools,.gulu-root:focus-within .gulu-pet-tools{opacity:1;visibility:visible;pointer-events:auto}
+.gulu-bubble~.gulu-pet-tools{display:none}
+.gulu-pet-tools .button{padding:5px 8px!important;min-height:27px;font-size:10px!important;color:#42483c}
+.gulu-reaction-note{position:fixed;z-index:28;width:190px;border:1px solid #e2e6d7;background:#fffffffa;box-shadow:0 4px 15px #15151508;border-radius:8px;padding:9px 11px;color:#505843;font-size:11px;line-height:1.7;pointer-events:none;text-align:center}
+.gulu-play-menu{margin-top:12px;padding-top:12px;border-top:1px solid #e8eadf}
+.gulu-play-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.gulu-play-heading strong{font-size:11px!important;color:#4b5142!important}
+.gulu-play-heading>span{font-size:9px;color:#929789}
+.gulu-play-actions{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+.gulu-play-actions .button{font-size:10px!important;padding:5px 8px!important;min-height:27px;background:#f8f9f5;border-color:#e8ebdf;color:#626b51}
+.gulu-focus-start{width:100%;background:#eff4d6!important;border-color:#dfe7bb!important;color:#56612e!important;font-size:10px!important;margin-bottom:2px}
+.gulu-focus-start:disabled{opacity:.7}
+.gulu-focus-panel{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f3f6e6;padding:10px 11px;border-radius:6px;margin-bottom:8px}
+.gulu-focus-panel div{display:grid;gap:2px}.gulu-focus-panel span{font-size:9px;color:#7c8664}.gulu-focus-panel time{font-size:20px;line-height:1.2;letter-spacing:1px;font-variant-numeric:tabular-nums;font-weight:600;color:#414b29}
+.gulu-dialog-reaction{margin:8px 0 0;padding:6px 8px;border-left:2px solid #d5e637;background:#f7f9ee;font-size:10px;line-height:1.75;color:#737e58}
+.gulu-root.is-small .gulu-pet-tools{display:none}
+.gulu-paused *{animation-play-state:paused!important}
+.bird-still .bird-body,.bird-still .gulu-action-layer,.bird-still .gulu-eye-lid,.bird-still .gulu-eye-pair,.bird-still .gulu-zzz,.bird-still .gulu-sparkles,.bird-still .gulu-hearts{animation:none!important;transition:none!important}
+.bird-still .gulu-action-layer,.bird-still .gulu-eye-pair{transform:none!important}
+.bird-still .gulu-sparkles,.bird-still .gulu-hearts{display:none}
+@media(pointer:coarse){.gulu-pet-tools{display:none}}
+@media(prefers-reduced-motion:reduce){.gulu-root *{animation:none!important;transition:none!important}.gulu-action-layer,.gulu-eye-pair{transform:none!important}.gulu-sparkles,.gulu-hearts{display:none}}
+@keyframes gulu-blink{0%,43%,47%,100%{transform:scaleY(1)}45%{transform:scaleY(.08)}}
+@keyframes gulu-land{0%{transform:scale(1.1,.86)}38%{transform:scale(.95,1.06)}75%{transform:scale(1.02,.97)}100%{transform:none}}
+@keyframes gulu-wave{0%,100%{transform:none}25%{transform:rotate(-5deg) translateY(-3px)}65%{transform:rotate(5deg) translateY(-5px)}}
+@keyframes gulu-pet{0%,100%{transform:none}40%{transform:scale(1.035,.97) rotate(-3deg)}70%{transform:rotate(2deg)}}
+@keyframes gulu-jump{0%,100%{transform:none}18%{transform:scale(1.07,.92)}48%{transform:translateY(-13px) rotate(-4deg)}72%{transform:translateY(-5px) rotate(3deg)}}
+@keyframes gulu-look{0%,100%{transform:none}30%{transform:rotate(-6deg)}72%{transform:rotate(5deg)}}
+@keyframes gulu-stretch{0%,100%{transform:none}45%{transform:translateY(-4px) scale(.96,1.055)}75%{transform:rotate(3deg)}}
+@keyframes gulu-walk{0%,100%{transform:none}25%{transform:translate(var(--gulu-walk-distance,-18px),-5px) rotate(-3deg)}50%{transform:translateX(var(--gulu-walk-distance,-18px))}75%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes gulu-nod{0%,100%{transform:none}45%{transform:translateY(2px) rotate(2deg)}}
+@keyframes gulu-sleep-breathe{50%{transform:translateY(1px) scale(1.01,.99)}}
+@keyframes gulu-sparkle{0%{opacity:0;transform:translateY(5px)}20%,65%{opacity:1}100%{opacity:0;transform:translateY(-7px)}}
+@keyframes gulu-heart{0%{opacity:0;transform:translateY(8px)}25%,60%{opacity:1}100%{opacity:0;transform:translateY(-9px)}}
+@keyframes gulu-doze{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-4px);opacity:1}}

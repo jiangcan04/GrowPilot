@@ -4,9 +4,20 @@
 
 ## 当前网站
 
-https://internpilot-career-workspace-20261026.valid-moose-4187.chatgpt.site/
+- 原平台：https://internpilot-career-workspace-20261026.valid-moose-4187.chatgpt.site/
+- 新版 UI 演示：https://growpilot-team-demo-20261027.gladchair32.chatgpt.site/
 
 网站公开可见。应用记录仍保存在当前浏览器的 localStorage / IndexedDB，升级保留原有 v4 数据；不会将个人简历或测试记录打包进站点。可导出 ZIP 备份。
+
+## UI 更新（2026-10-28）
+
+- 黑白灰界面、深色导航栏与荧光黄重点色；能力对照、匹配面板和成长计划卡片统一使用中性灰。
+- 新 GrowPilot 标志、横向字标与浏览器图标已放入 `web/assets/brand/`。
+- 咕噜沿用黑白折纸小鸟形象，支持目光跟随、眨眼、双击摸摸、拖动、小憩、专注计时和任务完成反馈；可减少动效。
+- 词云使用黑白灰和荧光黄，支持平滑漂浮、缓停缓启及点击查看岗位依据；遵从系统减少动效偏好。
+- 当前主题入口为 `web/ramp-theme.css` 与 `web/gulu-interactions.css`。`web/calendar-theme.css` 是早期样式存档，当前页面不加载它。
+
+本仓库保留原有 `.openai/hosting.json` 和后端实现；新版演示站使用独立部署配置。更新说明见 [UI 更新与验证](docs/ui-refresh-20261028.md)。
 
 ## 本轮功能
 

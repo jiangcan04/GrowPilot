@@ -3,11 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f7f8">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/svg+xml" href="./assets/brand/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/brand/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/brand/apple-touch-icon.png">
   <title>GrowPilot · 求职成长工作台</title>
   <meta name="description" content="从岗位采集、方向要求与经历匹配，到有经验来源的成长建议和成果积累。">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./growth-theme.css">
+  <link rel="stylesheet" href="./ramp-theme.css">
+  <link rel="stylesheet" href="./gulu-interactions.css">
   <script src="./vendor/jszip.min.js" defer></script>
   <script src="./job-taxonomy.js" defer></script>
   <script src="./word-cloud.js" defer></script>
@@ -26,7 +31,7 @@
   <div id="auth-root" hidden></div>
   <div class="app-shell" hidden>
     <aside class="sidebar" aria-label="主要导航">
-      <div class="logo"><span class="logo-mark">GP</span><span>GrowPilot<small>求职准备工作台</small></span></div>
+      <div class="logo brand"><img class="brand-lockup" src="./assets/brand/growpilot-lockup-white.svg" alt="GrowPilot" width="180" height="25" decoding="async"><small class="brand-caption">求职准备工作台</small></div>
       <nav id="side-nav"></nav>
       <div class="sidebar-ai-note">岗位 → 差距 → 行动<small>用成果积累自己的经历</small></div>
       <div id="account-root" class="account-root"></div>

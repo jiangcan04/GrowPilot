@@ -1,31 +1,63 @@
-/* Lightweight moving, collision-aware requirement cloud. No chart dependencies. */
-(function(root){
+/* Compositor-friendly requirement cloud with bounded, continuous drift. */
+(function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.InternPilotCloud=api;})(globalThis,function(){
  'use strict';
+ const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+ function pointAt(node,phase){return {x:node.x+Math.sin(phase*node.rate+node.seed)*node.ax,y:node.y+Math.cos(phase*node.rate*.78+node.seed*.67)*node.ay};}
+ function easeSpeed(speed,target,dt){return target+(speed-target)*Math.exp(-Math.max(0,dt)/.16);}
  function mount(container,onSelect){
   const labels=[...container.querySelectorAll('.cloud-word')];if(!labels.length)return ()=>{};
-  const media=matchMedia('(prefers-reduced-motion: reduce)'),toggle=container.parentElement.querySelector('[data-cloud-toggle]');
-  let frame=0,last=0,paused=false,hover=false,focused=false,inView=true,dead=false,nodes=[],size={w:0,h:0};
+  const doc=container.ownerDocument||document,win=doc.defaultView||window,media=win.matchMedia('(prefers-reduced-motion: reduce)'),toggle=container.parentElement.querySelector('[data-cloud-toggle]');
+  let frame=0,layoutFrame=0,last=0,phase=0,speed=0,paused=false,hover=false,focused=false,inView=true,dead=false,nodes=[];
+  const listeners=[];
+  function on(node,type,fn,options){node.addEventListener(type,fn,options);listeners.push(()=>node.removeEventListener(type,fn,options));}
   function layout(){
-   const w=container.clientWidth,h=container.clientHeight;size={w,h};if(w<20)return;
-   const cols=Math.max(1,Math.min(w<540?2:w<850?3:4,Math.ceil(Math.sqrt(labels.length*w/(h*2.4))))),rows=Math.ceil(labels.length/cols),cw=w/cols,ch=h/rows;
-   nodes=labels.map((el,i)=>{let font=Number(el.dataset.size)||24;el.style.fontSize=font+'px';while(el.offsetWidth>cw-14&&font>11){font--;el.style.fontSize=font+'px';}const row=Math.floor(i/cols),col=i%cols,offset=row%2?Math.min(10,cw*.05):-Math.min(10,cw*.05);return {el,x:Math.min(w-el.offsetWidth/2-8,Math.max(el.offsetWidth/2+8,cw*(col+.5)+offset)),y:ch*(row+.5),vx:Math.cos(i*2.399)*7,vy:Math.sin(i*2.399)*7,w:el.offsetWidth,h:el.offsetHeight,seed:i*1.618};});
+   const w=container.clientWidth;if(w<20||dead)return;
+   const cols=labels.length<=5?1:w<300&&labels.length<=12?1:w>=960?4:w>=640?3:2,rows=Math.ceil(labels.length/cols),paddingX=14,paddingY=26;
+   container.style.minHeight=Math.max(320,rows*44+paddingY*2)+'px';
+   const h=container.clientHeight,cw=(w-paddingX*2)/cols,ch=(h-paddingY*2)/rows;
+   nodes=labels.map((el,i)=>{
+    const row=Math.floor(i/cols),col=i%cols;
+    let font=clamp(Number(el.dataset.size)||24,10,44);el.style.maxWidth='none';el.style.fontSize=font+'px';
+    while((el.offsetWidth>cw-18||el.offsetHeight>ch-12)&&font>10){font--;el.style.fontSize=font+'px';}
+    el.style.maxWidth=Math.max(40,cw-18)+'px';
+    const width=el.offsetWidth,height=el.offsetHeight,roomX=Math.max(0,(cw-width-10)/2),roomY=Math.max(0,(ch-height-8)/2);
+    const ax=Math.min(16,roomX*.4),ay=Math.min(8,roomY*.72),stagger=cols===1?[0,.75,-.85,.6,-.45][i%5]:row%2?.12:-.12;
+    const left=paddingX+col*cw,widthHalf=width/2;
+    const x=clamp(left+cw/2+stagger*roomX,left+widthHalf+ax+4,left+cw-widthHalf-ax-4);
+    return {el,x,y:paddingY+ch*(row+.5),ax,ay,w:width,h:height,rate:.34+(i%4)*.045,seed:i*1.83};
+   });
    paint();
   }
-  function paint(){for(const n of nodes){n.x=Math.max(n.w/2+5,Math.min(size.w-n.w/2-5,n.x));n.y=Math.max(n.h/2+5,Math.min(size.h-n.h/2-5,n.y));n.el.style.transform='translate('+(n.x-n.w/2).toFixed(2)+'px,'+(n.y-n.h/2).toFixed(2)+'px)';}}
-  function active(){return !paused&&!hover&&!focused&&!media.matches&&inView&&!document.hidden&&!dead;}
-  function tick(time){frame=0;if(!active())return;const dt=Math.min(.035,(time-last)/1000||.016);last=time;
-   for(const n of nodes){n.vx+=Math.sin(time/2300+n.seed)*dt*3;n.vy+=Math.cos(time/3100+n.seed)*dt*2;n.vx=Math.max(-13,Math.min(13,n.vx));n.vy=Math.max(-11,Math.min(11,n.vy));n.x+=n.vx*dt;n.y+=n.vy*dt;
-    if(n.x<n.w/2+9){n.x=n.w/2+9;n.vx=Math.abs(n.vx)+1;}if(n.x>size.w-n.w/2-9){n.x=size.w-n.w/2-9;n.vx=-Math.abs(n.vx)-1;}if(n.y<n.h/2+9){n.y=n.h/2+9;n.vy=Math.abs(n.vy)+1;}if(n.y>size.h-n.h/2-9){n.y=size.h-n.h/2-9;n.vy=-Math.abs(n.vy)-1;}
-   }
-   for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],dx=b.x-a.x,dy=b.y-a.y,ox=(a.w+b.w)/2+13-Math.abs(dx),oy=(a.h+b.h)/2+12-Math.abs(dy);if(ox>0&&oy>0){if(ox<oy){const v=Math.sign(dx)||1;a.x-=v*ox*.5;b.x+=v*ox*.5;a.vx=-v*Math.max(3,Math.abs(a.vx));b.vx=v*Math.max(3,Math.abs(b.vx));}else{const v=Math.sign(dy)||1;a.y-=v*oy*.5;b.y+=v*oy*.5;a.vy=-v*Math.max(3,Math.abs(a.vy));b.vy=v*Math.max(3,Math.abs(b.vy));}}}
-   paint();frame=requestAnimationFrame(tick);
+  function paint(){for(const node of nodes){const p=pointAt(node,phase);node.el.style.transform='translate3d('+(p.x-node.w/2).toFixed(3)+'px,'+(p.y-node.h/2).toFixed(3)+'px,0)';}}
+  const available=()=>!dead&&!media.matches&&inView&&!doc.hidden;
+  const wantsMotion=()=>available()&&!paused&&!hover&&!focused;
+  function tick(time){
+   frame=0;if(!available()){speed=0;return;}
+   const dt=Math.min(.05,Math.max(0,(time-last)/1000));last=time;
+   const target=wantsMotion()?1:0,next=easeSpeed(speed,target,dt);
+   phase+=dt*(speed+next)/2;speed=next;paint();
+   if(target||speed>.001)frame=win.requestAnimationFrame(tick);else speed=0;
   }
-  function sync(){if(toggle){toggle.textContent=paused?'播放流动':'暂停流动';toggle.setAttribute('aria-pressed',String(paused));toggle.disabled=media.matches;if(media.matches)toggle.textContent='已按系统偏好减少动画';}if(active()&&!frame){last=performance.now();frame=requestAnimationFrame(tick);}else if(!active()&&frame){cancelAnimationFrame(frame);frame=0;}}
-  function click(event){const el=event.target.closest('.cloud-word');if(el)onSelect(el.dataset.key);}
-  const enter=()=>{hover=true;sync();},leave=()=>{hover=false;sync();},pause=()=>{paused=!paused;sync();},focusIn=()=>{focused=true;sync();},focusOut=()=>{focused=false;sync();};
-  container.addEventListener('pointerenter',enter);container.addEventListener('pointerleave',leave);container.addEventListener('focusin',focusIn);container.addEventListener('focusout',focusOut);container.addEventListener('click',click);toggle?.addEventListener('click',pause);document.addEventListener('visibilitychange',sync);media.addEventListener('change',sync);
-  const resize=new ResizeObserver(layout),visible=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;sync();});resize.observe(container);visible.observe(container);layout();sync();
-  return ()=>{dead=true;cancelAnimationFrame(frame);resize.disconnect();visible.disconnect();container.removeEventListener('pointerenter',enter);container.removeEventListener('pointerleave',leave);container.removeEventListener('focusin',focusIn);container.removeEventListener('focusout',focusOut);container.removeEventListener('click',click);toggle?.removeEventListener('click',pause);document.removeEventListener('visibilitychange',sync);media.removeEventListener('change',sync);};
+  function sync(){
+   const moving=wantsMotion();container.dataset.motion=media.matches?'reduced':moving?'moving':'paused';
+   if(toggle){toggle.disabled=media.matches;toggle.textContent=media.matches?'已按系统偏好减少动画':paused?'继续流动':'暂停流动';toggle.setAttribute('aria-pressed',String(paused));}
+   if(!available()){speed=0;if(frame)win.cancelAnimationFrame(frame);frame=0;last=0;return;}
+   if((moving||speed>.001)&&!frame){last=win.performance.now();frame=win.requestAnimationFrame(tick);}
+  }
+  function queueLayout(){if(dead||layoutFrame)return;layoutFrame=win.requestAnimationFrame(()=>{layoutFrame=0;layout();sync();});}
+  on(container,'pointerenter',()=>{hover=true;sync();});
+  on(container,'pointerleave',()=>{hover=false;sync();});
+  on(container,'focusin',()=>{focused=true;sync();});
+  on(container,'focusout',e=>{focused=!!e.relatedTarget&&container.contains(e.relatedTarget);sync();});
+  on(container,'click',e=>{const word=e.target.closest('.cloud-word');if(word&&container.contains(word))onSelect(word.dataset.key);});
+  if(toggle)on(toggle,'click',()=>{paused=!paused;sync();});
+  on(doc,'visibilitychange',sync);on(media,'change',sync);
+  const resize=win.ResizeObserver?new win.ResizeObserver(queueLayout):null;
+  const visible=win.IntersectionObserver?new win.IntersectionObserver(entries=>{inView=!!entries[0]?.isIntersecting;sync();},{threshold:.05}):null;
+  if(resize)resize.observe(container);else on(win,'resize',queueLayout);
+  visible?.observe(container);doc.fonts?.ready.then(()=>{if(!dead)queueLayout();});
+  layout();sync();
+  return ()=>{dead=true;win.cancelAnimationFrame(frame);win.cancelAnimationFrame(layoutFrame);resize?.disconnect();visible?.disconnect();listeners.forEach(fn=>fn());container.dataset.motion='paused';};
  }
- root.InternPilotCloud={mount};
-})(globalThis);
+ return {mount,pointAt,easeSpeed};
+});

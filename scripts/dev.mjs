@@ -3,7 +3,7 @@ import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {handleAPI} from '../worker/handler.mjs';
 const args=process.argv.slice(2),get=(k,d)=>{const i=args.indexOf(k);return i<0?d:args[i+1];},port=Number(get('--port',process.env.PORT||'8000')),host=get('--host','127.0.0.1');
-const root=path.resolve('web'),mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8'};
+const root=path.resolve('web'),mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.svg':'image/svg+xml','.png':'image/png'};
 http.createServer(async(req,res)=>{try{
  if(!['localhost','127.0.0.1','terminal.local'].includes(String(req.headers.host).split(':')[0])){res.writeHead(403);res.end();return;}
  const url=new URL(req.url,'http://'+req.headers.host);
